@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!, except: [:dashboard, :index, :show]
   # GET /tweets
   # GET /tweets.json
   def index
@@ -25,7 +25,7 @@ class TweetsController < ApplicationController
   # POST /tweets.json
   def create
     @tweet = Tweet.new(tweet_params)
-
+    @tweet.user = current_user
     respond_to do |format|
       if @tweet.save
         format.html { redirect_to @tweet, notice: 'Tweet was successfully created.' }
@@ -61,6 +61,15 @@ class TweetsController < ApplicationController
     end
   end
 
+  def dashboard
+    if current_user
+      @tweets = current_user.tweets
+    else
+      @tweets = Tweet.order(:created_at).limit(20)
+    end
+    render :index
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
@@ -69,6 +78,6 @@ class TweetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tweet_params
-      params.require(:tweet).permit(:content, :user_id)
+      params.require(:tweet).permit(:content)
     end
 end

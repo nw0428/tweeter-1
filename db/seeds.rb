@@ -5,3 +5,21 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+user_count = User.count
+
+for follower in User.all do
+  for followee in User.all do
+    begin
+      follower.following_users << followee
+    rescue
+      puts 'rescued'
+    end
+  end
+end
+
+line_num=0
+File.open(File.join(Rails.root, 'tweets.csv')).each do |line|
+  line_num += 1
+  Tweet.new(user_id: line_num % user_count, content: line).save
+end
