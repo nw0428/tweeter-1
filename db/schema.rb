@@ -58,8 +58,8 @@ ActiveRecord::Schema.define(version: 20171107213736) do
   create_table "users_users", id: false, force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followee_id"
-    t.index ["followee_id"], name: "index_users_users_on_followee_id", unique: true
-    t.index ["follower_id"], name: "index_users_users_on_follower_id", unique: true
+    t.index ["followee_id"], name: "index_users_users_on_followee_id"
+    t.index ["follower_id"], name: "index_users_users_on_follower_id"
   end
 
   add_foreign_key "tweets", "users"
