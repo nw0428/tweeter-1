@@ -11,7 +11,7 @@ class Tweet < ApplicationRecord
       hashtag = Hashtag.find_or_create_by( tag: tag)
 
       #hashtag = Hashtag.new(tag: tag)
-      hashtag.save
+      #hashtag.save
       self.hashtags << hashtag
     end
   end
