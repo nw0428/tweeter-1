@@ -1,5 +1,5 @@
 class Tweet < ApplicationRecord
-  validates :content, presence: true, length: {minimum: 1, maximum: 256}
+  validates :content, presence: true, length: {minimum: 1, maximum: 120}
   before_save :generate_hashtags
 
   belongs_to :user
