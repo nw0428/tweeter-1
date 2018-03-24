@@ -16,6 +16,9 @@
       <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
     <% end %>
     </div>
+
+    <%= link_to "Home", dashboard_tweets_path %>
+    
     <%= yield %>
   </body>
 </html>
